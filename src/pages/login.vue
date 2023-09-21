@@ -28,7 +28,7 @@
             <i slot="prefix" class="el-input__icon el-icon-lock"></i>
             <el-button type="text">忘记密码？</el-button>
           </div>
-          <el-button type="text">注册新账号</el-button>
+          <el-button type="text" @click="register" >注册新账号</el-button>
         </div>
       </div>
     </div>
@@ -48,6 +48,7 @@ export default {
     }
   },
   methods: {
+    // 登录
     login() {
       this.$axios.post('/login', this.user).then(res => {
         if (res.code == 20000) {
@@ -58,6 +59,10 @@ export default {
           this.$message(res.msg);
         }
       });
+    },
+    // 注册
+    register() {
+      this.$router.push('register');
     }
   }
 }

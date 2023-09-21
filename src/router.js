@@ -23,6 +23,11 @@ let router = new Router({
       component: () => import("./pages/login"),
     },
     {
+      path: "/register",
+      name: "register",
+      component: (/*注册页面*/) => import('@/pages/register.vue')
+    },
+    {
       path: "/index",
       // redirect:"/content",
       component: () => import("./pages/index"),
@@ -36,6 +41,11 @@ let router = new Router({
           path: "teachers",
           name: "Teachers",
           component: () => import("./pages/teacher/Teachers"),
+        },
+        {
+          path: "students",
+          name: "Students",
+          component: () => import("./pages/student/Students"),
         },
         {
           path: "courses",

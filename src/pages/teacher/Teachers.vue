@@ -50,6 +50,8 @@
       <el-pagination style="padding: 0px;" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[5, 10, 20, 30, 40, 50]"
                      :current-page="pageNum" :page-size="pageSize" :total="pageTotal" layout="prev, pager, next, jumper, sizes, total"/>
     </el-row>
+
+    <teacher-form ref="TeacherForm"></teacher-form>
   </div>
 </template>
 
@@ -57,9 +59,11 @@
 
 import operate from './operate'
 import commonOperate from "@/api/common";
+import TeacherForm from './TeacherForm.vue';
 
 export default {
   name: "teachers",
+  components: {TeacherForm},
   created() {
     this.getPage();
   },
@@ -98,7 +102,8 @@ export default {
       return level;
     },
     handleInsert: function () {
-      this.$router.push('/index/teachers/insertTeacher');
+      // this.$router.push('/index/teachers/insertTeacher');
+      this.$refs['TeacherForm'].startInsert();
     },
     handleEdit: function (id) {
       this.$router.push('/index/teachers/updateTeacher/' + id);

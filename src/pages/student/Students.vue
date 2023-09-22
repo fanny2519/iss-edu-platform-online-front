@@ -173,5 +173,6 @@ export default {
   display: flex;
   justify-content: center;
   padding-top: 20px;
+  width: 80px;
 }
 </style>

@@ -19,7 +19,7 @@ function getUser(id) {
 }
 
 function submitForm(id, user) {
-    let url = id == undefined ? '/user/insertUser' : '/user/updateUser';
+    let url = id == 0 ? '/user/insertUser' : '/user/updateUser';
     return ajax({
         url,
         method: 'post',

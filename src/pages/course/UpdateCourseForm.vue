@@ -86,12 +86,16 @@ export default {
   },
   methods: {
     beforeAvatarUpload: function (file) {
+      console.log("运行beforeAvatarUpload")
       commonOperate.beforeAvatarUpload(file);
     },
     handleAvatarSuccess: function (res) {
       this.$message.success(res.msg);
       this.avatar = this.$avatarUrl + res.data
-      this.user.photo = res.data;
+      // this.user.photo = res.data;
+      this.course.cover = res.data
+      console.log(this.$avatarUrl + res.data)
+      console.log(this.course.cover)
     },
     handleMaterialsExceed: function (files, fileList) {
       this.$message.warning(`当前限制选择 10 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
@@ -112,8 +116,10 @@ export default {
     },
     initFormForUpdate() {
       operate.getCourse(this.id).then(res => {
+        console.log("运行initFormForUpdate")
         this.course = res;
         this.materials = res.materials;
+        // 图像回显
         this.avatar = this.$avatarUrl + res.cover;
       });
     },

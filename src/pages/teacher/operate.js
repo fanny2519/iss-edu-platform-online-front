@@ -18,8 +18,8 @@ function getUser(id) {
     });
 }
 
-function submitForm(id, user) {
-    let url = id == 0 ? '/user/insertUser' : '/user/updateUser';
+function submitTeacherForm(user) {
+    let url = user.id == 0 ? '/user/insertUser' : '/user/updateUser';
     return ajax({
         url,
         method: 'post',
@@ -48,4 +48,4 @@ function getClassTransfer() {
     });
 }
 
-export default {getPage, getUser, submitForm, deleteUser, deleteUsers, getClassTransfer}
+export default {getPage, getUser, submitTeacherForm, deleteUser, deleteUsers, getClassTransfer}

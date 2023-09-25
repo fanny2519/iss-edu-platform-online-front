@@ -64,6 +64,7 @@ export default {
       this.$message.success(res.msg);
       this.avatar = this.$avatarUrl + res.data
       this.teacher.cover = res.data;
+      this.teacher.photo = res.data;
     },
     startInsert: function () {
       this.title = 'Insert Course Information';
@@ -75,7 +76,8 @@ export default {
       this.$refs['teacherForm'].resetFields();
     },
     handleSubmitForm: function () {
-      operate.submitForm(this.ids, this.teacher).then(res => {
+      console.log(this.teacher)
+      operate.submitTeacherForm(this.teacher).then(res => {
             if (res.operate) {
               this.$message.success(res.msg);
               this.dialogFormVisible = false;
@@ -84,7 +86,8 @@ export default {
               this.$message.error(res.msg);
             }
           }
-      );
+      ).catch(error => {
+      })
     }
   },
   data() {
@@ -94,7 +97,7 @@ export default {
       fileList: [],
       avatar: '',
       teachers: [],
-      ids: 0,
+      id: 0,
       teacher: {
         id: 0,
         username: '',
@@ -103,6 +106,7 @@ export default {
         classHour: '',
         phone: '',
         email: '',
+        photo: '',
         level: '',
         introduction: '',
         cover: this.avatar

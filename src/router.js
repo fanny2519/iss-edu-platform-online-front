@@ -43,6 +43,11 @@ let router = new Router({
           component: () => import("./pages/teacher/Teachers"),
         },
         {
+          path: "teachers/updateTeacher/:id",
+          name: "CatalogueList",
+          component: () => import("./pages/teacher/UpdateTeacherForm"),
+        },
+        {
           path: "students",
           name: "Students",
           component: () => import("./pages/student/Students"),

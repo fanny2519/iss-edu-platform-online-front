@@ -71,6 +71,7 @@ export default {
     getPage() {
       operate.getPage(this.pageNum, this.pageSize, this.queryValue).then(res => {
         this.tableData = res.rows;
+        console.log(res.rows)
         this.pageTotal = res.total;
         this.pageNum = res.pageNum;
       });

@@ -30,15 +30,11 @@
         </el-table-column>
         <el-table-column prop="username" label="登陆账号" width="200" align="center"/>
         <el-table-column prop="nickname" label="用户姓名" width="200" align="center"/>
-        <!-- <el-table-column prop="level" label="级别" width="200" align="center" :formatter="handleFormate"/> -->
         <el-table-column prop="stuNumber" label="学号" width="200" align="center"/>
         <el-table-column prop="phone" label="手机" width="200" align="center"/>
         <el-table-column prop="email" label="邮箱" width="320" align="center"/>
         <el-table-column prop="lastUpdate" label="添加时间" width="180" align="center">
-          <!-- <template v-slot="scope"> -->
-            <!-- {{ scope.row.operator }} <br> -->
-            <!-- {{ scope.row.lastUpdate }} -->
-          <!-- </template> -->
+
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template v-slot="scope">

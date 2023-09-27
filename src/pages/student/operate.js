@@ -48,6 +48,14 @@ function getClassTransfer() {
     });
 }
 
+function linkClasses(studentIds, classesIds) {
+
+    return ajax({
+        url: '/student/linkClasses/' + studentIds + '/' + classesIds,
+        method: 'get',
+    });
+}
 
 
-export default {getPage, getStudent, submitStudentForm, deleteStudent, deleteStudents, getClassTransfer}
+
+export default {getPage, getStudent, submitStudentForm, deleteStudent, deleteStudents, getClassTransfer, linkClasses}

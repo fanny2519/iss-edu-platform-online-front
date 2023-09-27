@@ -1,59 +1,7 @@
 <template>
   <el-dialog :title="title" :visible.sync="dialogFormVisible" @close="handleClose">
-    <el-form class="el-form" :model="student" label-position="left" label-width="90px" ref="StudentForm">
-      <el-container>
-        <el-main style="padding: 0;">
-          <el-form-item label="学生姓名" prop="nickname" class="el-form-item" >
-            <el-input v-model="student.nickname" class="el-input"/>
-          </el-form-item>
-          <el-form-item label="学生性别" prop="sex">
-            <el-radio-group v-model="student.sex">
-              <el-radio :label="0">男</el-radio>
-              <el-radio :label="1">女</el-radio>
-            </el-radio-group>
-          </el-form-item>
-          <!-- 头像 -->
-          <el-aside class="el-aside" style="width: 180px;display: flex;justify-content: center;padding-bottom: 20px;">
-            <el-upload name="avatar" class="avatar-uploader" :show-file-list="false" :action="this.$uploadAvatar"
-                       :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-              <img v-if="avatar" :src="this.$avatarUrl + avatar" class="avatar">
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </el-aside>
-
-
-          <el-form-item label="登录账号" prop="username" class="el-form-item" >
-            <el-input v-model="student.username" class="el-input"/>
-          </el-form-item>
-          <el-form-item label="登陆密码" prop="password" class="el-form-item" >
-            <el-input v-model="student.password" class="el-input"  />
-          </el-form-item>
-          <el-form-item label="邮箱地址" prop="email">
-            <el-input v-model="student.email" class="el-input" />
-          </el-form-item>
-          <el-form-item label="QQ号码" prop="qqNumber">
-            <el-input v-model="student.qqNumber" class="el-input" />
-          </el-form-item>
-          <el-form-item label="手机号码" prop="phone">
-            <el-input v-model="student.phone" class="el-input" />
-          </el-form-item>
-          <el-form-item label="身份证号" prop="identityCard">
-            <el-input v-model="student.identityCard" class="el-input" />
-          </el-form-item>
-          <el-form-item label="学生学号" prop="stuNumber">
-            <el-input v-model="student.stuNumber" class="el-input" />
-          </el-form-item>
-        </el-main>
-      </el-container>
-      <el-form-item label="个性签名" prop="signature" class="textarea" >
-        <el-input type="textarea" :rows="1" placeholder="请输入内容" v-model="student.signature"/>
-      </el-form-item>
-      <el-form-item label="个人简介" prop="introduction" class="textarea" >
-        <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="student.introduction"/>
-      </el-form-item>
-
-      <el-form-item label="所属班级">
-
+    <el-form class="el-form" :model="student" label-position="left" label-width="90px" ref="StudentClass">
+      <el-form-item label="">
         <!-- :button-texts="['到左边', '到右边']" -->
         <el-transfer
           style="text-align: left; display: block; padding: 0px"
@@ -88,6 +36,10 @@ import operate from "./operate";
 
 export default {
   name: "StudentForm",
+  props: {
+    ids: Array,
+    required: true
+  },
   created() {
   },
   methods: {
@@ -102,21 +54,28 @@ export default {
       this.avatar = res.data
     },
     startInsert: function () {
-      this.title = 'Insert Student Information';
+      this.title = 'Student Class Information';
       this.dialogFormVisible = true;
+      console.log(this.ids)
     },
     handleClose: function () {
       this.avatar = '';
       this.fileList = [];
-      // this.$refs['studentForm'].resetFields();
       this.dialogFormVisible = false;
+      // this.$refs['studentClass'].resetFields();
     },
     handleChange(value, direction, movedKeys) {
-        console.log(value)
+        // console.log(value)
+        this.ids.forEach((obj,index) =>{
+          console.log(obj.id)
+          this.student.id.push(obj.id)
+        })
+        this.student.classes = this.value
+        console.log(this.student.id)
     },
     handleSubmitForm: function () {
       console.log(this.student)
-      operate.submitStudentForm(this.student).then(res => {
+      operate.linkClasses(this.student.id, this.student.classes).then(res => {
             if (res.operate) {
               this.$message.success(res.msg);
               this.dialogFormVisible = false;
@@ -155,24 +114,9 @@ export default {
       title: '',
       fileList: [],
       avatar: '',
-      id: 0,
       student: {
-          id: 0,
-          classId: '',
-          email: '',
-          identityCard: '',
-          introduction: '',
-          name: '',
-          nickname: '',
-          password: '',
-          phone: '',
-          photo: '',
-          qqNumber: '',
-          stuNumber: '',
-          sex: '',
-          signature: '',
-          username: '',
-          classes: this.value,
+          id: [],
+          classes: [],
         },
     }
   }

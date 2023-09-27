@@ -21,7 +21,7 @@
     </el-row>
     <el-row style="width: 99%;margin: auto;background-color: #FFFFFF;">
       <el-table ref="StudentTable" :data="tableData" :border="true" size="small">
-        <el-table-column type="selection" prop="id" align='center' width="40"/>
+        <el-table-column type="selection" prop="id" v-model="ids" align='center' width="40"/>
         <el-table-column type='index' label="照片" width="100" align='center'>
           <template v-slot="scope">
             <el-avatar shape="square" :size="75" :src="avatarUrl + scope.row.photo"
@@ -50,6 +50,8 @@
     </el-row>
 
     <student-form ref="StudentForm"></student-form>
+    <student-class ref="StudentClass" :ids="rows"></student-class>
+
   </div>
 </template>
 
@@ -59,10 +61,11 @@ import operate from './operate'
 import commonOperate from "@/api/common";
 import StudentForm from './StudentForm.vue';
 import UpdateStudentForm from './UpdateStudentForm.vue';
+import StudentClass from './StudentClass.vue';
 
 export default {
   name: "students",
-  components: { StudentForm, UpdateStudentForm },
+  components: { StudentForm, UpdateStudentForm, StudentClass },
   created() {
     this.getPage();
   },
@@ -71,7 +74,7 @@ export default {
       operate.getPage(this.pageNum, this.pageSize, this.queryValue).then(res => {
         this.tableData = res.rows;
         // 调试
-        console.log(res.rows)
+        // console.log(res.rows)
         this.pageTotal = res.total;
         this.pageNum = res.pageNum;
       });
@@ -87,18 +90,18 @@ export default {
     handleQuery: function () {
       this.getPage();
     },
-    handleFormate: function (row, column, cellValue) {
-      let sex = '';
-      switch (cellValue) {
-        case 0:
-          sex = '男';
-          break;
-        case 1:
-          sex = '女';
-          break;
-      }
-      return level;
-    },
+    // handleFormate: function (row, column, cellValue) {
+    //   let sex = '';
+    //   switch (cellValue) {
+    //     case 0:
+    //       sex = '男';
+    //       break;
+    //     case 1:
+    //       sex = '女';
+    //       break;
+    //   }
+    //   return sex;
+    // },
     handleInsert: function () {
       this.$refs['StudentForm'].startInsert();
     },
@@ -118,7 +121,7 @@ export default {
       });
     },
     handleDeletes: function () {
-      let rows = this.$refs.TeacherTable.selection;
+      let rows = this.$refs.StudentTable.selection;
       if (rows.length == 0) {
         this.$message.info('请选择需要删除的数据进行操作！');
         return;
@@ -140,12 +143,25 @@ export default {
     },
     // 关联班级
     associateClasses(){
+      this.rows = this.$refs.StudentTable.selection;
+      if (this.rows.length == 0) {
+        this.$message.warning('请选择1条学生数据！');
+        return;
+      } else {
+        this.$refs['StudentClass'].startInsert();
+        console.log(this.rows)
+        this.ids = this.rows
+        console.log(this.ids)
+      }
+      
     },
     bulkImport(){}
   },
   data() {
     return {
       avatarUrl: this.$avatarUrl,
+      rows: [],
+      ids: [],
       tableData: '',
       pageNum: 1,
       pageSize: 5,

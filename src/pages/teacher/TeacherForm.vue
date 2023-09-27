@@ -3,38 +3,40 @@
     <el-form :model="teacher" label-position="left" label-width="90px" ref="teacherForm">
       <el-container>
         <el-main style="padding: 0;">
-          <el-form-item label="账号" prop="username">
+          <el-form-item label="登录账号" prop="username" class="el-form-item" >
             <el-input v-model="teacher.username" style="width: 300px"/>
           </el-form-item>
-          <el-form-item label="姓名" prop="nickname">
+          <el-aside class="el-aside" style="width: 305px;display: flex;justify-content: center;padding-bottom: 20px;">
+            <el-upload name="avatar" class="avatar-uploader" :show-file-list="false" :action="this.$uploadAvatar"
+                       :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+              <img v-if="avatar" :src="avatar" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-aside>
+          <el-form-item label="讲师姓名" prop="nickname" class="el-form-item" >
             <el-input v-model="teacher.nickname" style="width: 300px"/>
           </el-form-item>
-          <el-form-item label="密码" prop="password">
+          <el-form-item label="登陆密码" prop="password" class="el-form-item">
             <el-input v-model="teacher.password" style="width: 300px"/>
           </el-form-item>
-          <el-form-item label="电话" prop="phone">
-            <el-input v-model="teacher.phone" style="width: 300px"/>
-          </el-form-item>
-          <el-form-item label="邮箱" prop="email">
-            <el-input v-model="teacher.email" style="width: 300px"/>
-          </el-form-item>
-          <el-form-item label="级别" prop="level">
+          
+          <el-form-item label="讲师级别" prop="level">
             <el-radio-group v-model="teacher.level">
               <el-radio :label="0">高级讲师</el-radio>
               <el-radio :label="1">中级讲师</el-radio>
               <el-radio :label="2">初级讲师</el-radio>
             </el-radio-group>
           </el-form-item>
+          <el-form-item label="手机号码" prop="phone">
+            <el-input v-model="teacher.phone" style="width: 300px"/>
+          </el-form-item>
+          <el-form-item label="邮箱地址" prop="email">
+            <el-input v-model="teacher.email" style="width: 300px"/>
+          </el-form-item>
+          
         </el-main>
-        <el-aside style="width: 305px;display: flex;justify-content: center;padding-bottom: 20px;">
-          <el-upload name="avatar" class="avatar-uploader" :show-file-list="false" :action="this.$uploadAvatar"
-                     :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-            <img v-if="avatar" :src="avatar" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-        </el-aside>
       </el-container>
-      <el-form-item label="教师简介" prop="introduction">
+      <el-form-item label="教师简介" prop="introduction" class="textarea">
         <el-input type="textarea" :rows="5" placeholder="请输入内容" v-model="teacher.introduction"/>
       </el-form-item>
     </el-form>
@@ -118,8 +120,8 @@ export default {
 
 <style scoped>
 .avatar-uploader {
-  width: 305px;
-  height: 280px;
+  width: 250px;
+  height: 250px;
   border: 1px dashed #d9d9d9;
   cursor: pointer;
   position: relative;
@@ -134,15 +136,27 @@ export default {
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 305px;
-  height: 305px;
-  line-height: 280px;
+  width: 250px;
+  height: 250px;
+  line-height: 250px;
   text-align: center;
 }
 
 .avatar {
-  width: 305px;
-  height: 280px;
+  width: 250px;
+  height: 250px;
+  display: inline-block;
+}
+
+.el-aside {
+  float: right;
+}
+.el-form-item {
+  display: inline-block;
+}
+
+.textarea {
   display: block;
+
 }
 </style>

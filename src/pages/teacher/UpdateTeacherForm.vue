@@ -11,39 +11,43 @@
       <el-form :model="teacher" label-position="left" label-width="90px" ref="teacherForm" style="width: 65%;">
         <el-container>
           <el-main style="padding: 0;">
-            <el-form-item label="账号" prop="username">
-              <el-input v-model="teacher.username" style="width: 300px"/>
+            <el-form-item label="登录账号" prop="username" class="el-form-item" >
+              <el-input v-model="teacher.username" class="el-input"/>
             </el-form-item>
-            <el-form-item label="密码" prop="password">
-              <el-input v-model="teacher.password" style="width: 300px"/>
-            </el-form-item>
-            <el-form-item label="讲师姓名" prop="nickname">
-              <el-input v-model="teacher.nickname" style="width: 300px"/>
-            </el-form-item>
+
+            <el-aside class="el-aside" style="width: 305px;display: flex;justify-content: center;padding-bottom: 20px;">
+              <el-upload name="avatar" class="avatar-uploader" :show-file-list="false" :action="this.$uploadAvatar"
+                         :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                <img v-if="avatar" :src="this.$avatarUrl + avatar" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload>
+            </el-aside>
+
             
-            <el-form-item label="电话" prop="phone">
-              <el-input v-model="teacher.phone" style="width: 300px"/>
+            <el-form-item label="讲师姓名" prop="nickname" class="el-form-item" >
+              <el-input v-model="teacher.nickname" class="el-input"/>
             </el-form-item>
-            <el-form-item label="邮箱" prop="email">
-              <el-input v-model="teacher.email" style="width: 300px"/>
+            <el-form-item label="登陆密码" prop="password" class="el-form-item" >
+              <el-input v-model="teacher.password" class="el-input"  />
             </el-form-item>
-            <el-form-item label="级别" prop="level">
+            <el-form-item label="讲师级别" prop="level">
               <el-radio-group v-model="teacher.level">
                 <el-radio :label="1">初级讲师</el-radio>
                 <el-radio :label="2">中级讲师</el-radio>
                 <el-radio :label="3">高级讲师</el-radio>
               </el-radio-group>
             </el-form-item>
+            <el-form-item label="手机号码" prop="phone">
+              <el-input v-model="teacher.phone" class="el-input" />
+            </el-form-item>
+            <el-form-item label="邮箱地址" prop="email">
+              <el-input v-model="teacher.email" class="el-input" />
+            </el-form-item>
+            
           </el-main>
-          <el-aside style="width: 305px;display: flex;justify-content: center;padding-bottom: 20px;">
-            <el-upload name="avatar" class="avatar-uploader" :show-file-list="false" :action="this.$uploadAvatar"
-                       :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-              <img v-if="avatar" :src="this.$avatarUrl + avatar" class="avatar">
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </el-aside>
+          
         </el-container>
-        <el-form-item label="教师简介" prop="introduction">
+        <el-form-item label="教师简介" prop="introduction" class="textarea" >
           <el-input type="textarea" :rows="5" placeholder="请输入内容" v-model="teacher.introduction"/>
         </el-form-item>
       </el-form>
@@ -65,10 +69,10 @@
     name: "UpdateTeacherForm",
     created() {
       this.id = this.$route.params.id;
-      operate.getTeachersForSelect().then(res => {
+      // operate.getTeachersForSelect().then(res => {
         // this.teachers = res;
-        console.log(res)
-      });
+        // console.log(res)
+      // });
     },
     mounted() {
       this.initFormForUpdate();
@@ -129,8 +133,8 @@
   
   <style scoped>
   .avatar-uploader {
-    width: 305px;
-    height: 305px;
+    width: 250px;
+    height: 250px;
     border: 1px dashed #d9d9d9;
     cursor: pointer;
     position: relative;
@@ -144,15 +148,31 @@
   .avatar-uploader-icon {
     font-size: 28px;
     color: #8c939d;
-    width: 305px;
-    height: 305px;
-    line-height: 305px;
+    width: 250px;
+    height: 250px;
+    line-height: 250px;
     text-align: center;
   }
   
   .avatar {
-    width: 305px;
-    height: 305px;
+    width: 250px;
+    height: 250px;
+    display: inline-block;
+  }
+
+  .el-input {
+    width: 450px;
+  }
+
+  .el-aside {
+    float: right;
+  }
+  .el-form-item {
+    display: inline-block;
+  }
+  
+  .textarea {
     display: block;
+  
   }
   </style>

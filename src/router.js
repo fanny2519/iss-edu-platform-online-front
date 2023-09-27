@@ -38,6 +38,16 @@ let router = new Router({
           component: () => import("./pages/CenterArea"),
         },
         {
+          path: "classes",
+          name: "Classes",
+          component: () => import("./pages/class/Classes.vue"),
+        },
+        // {
+        //   path: "classes/insertCatalogue",
+        //   name: "ClassForm",
+        //   component: () => import("./pages/class/ClassForm/"),
+        // },
+        {
           path: "teachers",
           name: "Teachers",
           component: () => import("./pages/teacher/Teachers"),
@@ -47,16 +57,26 @@ let router = new Router({
           name: "CatalogueList",
           component: () => import("./pages/teacher/UpdateTeacherForm"),
         },
-        {
-          path: "student",
-          name: "Student",
-          component: () => import("./pages/student/Student"),
-        },
         // {
-        //   path: "students",
-        //   name: "Students",
-        //   component: () => import("./pages/student/Students"),
+        //   path: "student",
+        //   name: "Student",
+        //   component: () => import("./pages/student/Student"),
         // },
+        {
+          path: "students",
+          name: "Students",
+          component: () => import("./pages/student/Students"),
+        },
+        {
+          path: "students/insertStudent/",
+          name: "insertStudentList",
+          component: () => import("./pages/student/StudentForm"),
+        },
+        {
+          path: "students/updateStudent/:id",
+          name: "updateStudentList",
+          component: () => import("./pages/student/UpdateStudentForm"),
+        },
         {
           path: "courses",
           name: "Courses",

@@ -89,9 +89,9 @@
   </el-card>
 </template>
 <script>
-import listMixin from '@/http/listMixin'
-import Breadcrumb from '@/components/Breadcrumb'
-import StudentModal from './modal/StudentModal'
+import listMixin from '@/http/listMixin';
+import Breadcrumb from '@/components/Breadcrumb';
+import StudentModal from './modal/StudentModal';
 import axios from "@/http/axios";
 export default {
   name:'Student',

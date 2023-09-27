@@ -13,17 +13,17 @@ function getPage(pageNum, pageSize, queryValue) {
 
 function getStudent(id) {
     return ajax({
-        url: '/student/getStudents/' + id,
+        url: '/student/getStudent/' + id,
         method: 'get'
     });
 }
 
-function submitForm(id, user) {
-    let url = id == undefined ? '/student/insertStudent' : '/student/updateStudent';
+function submitStudentForm(student) {
+    let url = student.id == 0 ? '/student/insertStudent' : '/student/updateStudent';
     return ajax({
         url,
         method: 'post',
-        data: user
+        data: student
     });
 }
 
@@ -48,4 +48,6 @@ function getClassTransfer() {
     });
 }
 
-export default {getPage, getStudent, submitForm, deleteStudent, deleteStudents, getClassTransfer}
+
+
+export default {getPage, getStudent, submitStudentForm, deleteStudent, deleteStudents, getClassTransfer}

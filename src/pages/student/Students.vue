@@ -20,7 +20,7 @@
       </el-col>
     </el-row>
     <el-row style="width: 99%;margin: auto;background-color: #FFFFFF;">
-      <el-table ref="TeacherTable" :data="tableData" :border="true" size="small">
+      <el-table ref="StudentTable" :data="tableData" :border="true" size="small">
         <el-table-column type="selection" prop="id" align='center' width="40"/>
         <el-table-column type='index' label="照片" width="100" align='center'>
           <template v-slot="scope">
@@ -48,6 +48,8 @@
       <el-pagination style="padding: 0px;" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[5, 10, 20, 30, 40, 50]"
                      :current-page="pageNum" :page-size="pageSize" :total="pageTotal" layout="prev, pager, next, jumper, sizes, total"/>
     </el-row>
+
+    <student-form ref="StudentForm"></student-form>
   </div>
 </template>
 
@@ -55,9 +57,12 @@
 
 import operate from './operate'
 import commonOperate from "@/api/common";
+import StudentForm from './StudentForm.vue';
+import UpdateStudentForm from './UpdateStudentForm.vue';
 
 export default {
   name: "students",
+  components: { StudentForm, UpdateStudentForm },
   created() {
     this.getPage();
   },
@@ -83,22 +88,19 @@ export default {
       this.getPage();
     },
     handleFormate: function (row, column, cellValue) {
-      let level = '';
+      let sex = '';
       switch (cellValue) {
+        case 0:
+          sex = '男';
+          break;
         case 1:
-          level = '初级讲师';
-          break;
-        case 2:
-          level = '中级讲师';
-          break;
-        case 3:
-          level = '高级讲师';
+          sex = '女';
           break;
       }
       return level;
     },
     handleInsert: function () {
-      this.$router.push('/index/students/insertStudent');
+      this.$refs['StudentForm'].startInsert();
     },
     handleEdit: function (id) {
       this.$router.push('/index/students/updateStudent/' + id);
@@ -136,6 +138,7 @@ export default {
         });
       });
     },
+    // 关联班级
     associateClasses(){
     },
     bulkImport(){}
